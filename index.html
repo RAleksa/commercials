@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link href="/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
+    <meta charset="utf-8">
+    <title>Adds</title>
+</head>
+<body>
+    <div class="container">
+        <form action="/cgi-bin/form.py">
+                <legend>Differential equation system parameters</legend>
+
+                <div class="form-group">
+                    <label for="S_pars" lang="latex" class="col-md-4 control-label">S(t) = At + Bsin(t)</label>
+                    <div class="form-group row" id="S_pars">
+                        <div class="col-md-3">
+                            <input type="text" name="SA" class="form-control" placeholder="A">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="SB" class="form-control" placeholder="B">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="z_pars" lang="latex" class="col-md-4 control-label">z(t) = At + Bcos(t)</label>
+                    <div class="form-group row" id="z_pars">
+                        <div class="col-md-3">
+                            <input type="text" name="zA" class="form-control" placeholder="A">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="zB" class="form-control" placeholder="B">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="p_pars" lang="latex" class="col-md-4 control-label">\rho(\omega) = A \omega (B - \omega)</label>
+                    <div class="form-group row" id="p_pars">
+                        <div class="col-md-3">
+                            <input type="text" name="pA" class="form-control" placeholder="A">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="pB" class="form-control" placeholder="B">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="beta_pars" lang="latex" class="col-md-1 control-label">\beta</label>
+                    <div class="form-group row" id="beta_pars">
+                        <div class="form-check" class="col-md-2">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" name="auto_check" id="auto_check">
+                                Auto
+                            </label>
+                        </div>
+
+                        <div class="col-md-3" id="beta">
+                            <input type="text" name="beta" class="form-control" placeholder="&#946">
+                        </div>
+                        <div class="col-md-3" id="beta_1">
+                            <input type="text" name="beta_1" class="form-control" placeholder="&#946 start">
+                        </div>
+                        <div class="col-md-3" id="beta_2">
+                            <input type="text" name="beta_2" class="form-control" placeholder="&#946 end">
+                        </div>
+                        <div class="col-md-3" id="nbeta">
+                            <input type="text" name="nbeta" class="form-control" placeholder="Number of &#946">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="f_pars" lang="latex" class="col-md-4 control-label">f(z, x, S, \beta) = \beta (AS - Bx)</label>
+                    <div class="form-group row" id="f_pars">
+                        <div class="col-md-3">
+                            <input type="text" name="fA" class="form-control" placeholder="A">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="fB" class="form-control" placeholder="B">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="X0_pars" lang="latex" class="col-md-4 control-label">X_0</label>
+                    <div class="form-group row" id="X0_pars">
+                        <div class="col-md-3">
+                            <input type="text" name="X0" class="form-control" placeholder="X0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Y0_pars" lang="latex" class="col-md-4 control-label">Y_0</label>
+                    <div class="form-group row" id="Y_pars">
+                        <div class="col-md-3">
+                            <input type="text" name="Y0" class="form-control" placeholder="Y0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="T_pars" lang="latex" class="col-md-4 control-label">T</label>
+                    <div class="form-group row" id="T_pars">
+                        <div class="col-md-3">
+                            <input type="text" name="T" class="form-control" placeholder="T">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Solve</button>
+                </div>
+
+                <p><div lang="latex">
+                    Example:\\
+                    S(t) = 3t + sin(t)\\
+                    z(t) = 4t + cos(t)\\
+                    \rho(\omega) = 6 \omega (1 - \omega)\\
+                    \beta = 0.01\\
+                    f(z, x, S, \beta) = \beta (S - x)\\
+                    X_0 = 0\\
+                    Y_0 = 0\\
+                    T = 1\\
+                </div></p>
+
+
+                <div class="form-group">
+                    <div class="form-group row">
+                        <button type="button" class="btn btn-primary" id="use_example">Use this example</button>
+                        <button type="button" class="btn btn-primary" id="clear">Clear</button>
+                    </div>
+                </div>
+        </form>
+    </div>
+
+    <script>
+        if ($('#auto_check').checked) {
+            $('#beta').hide();
+        } else {
+            $('#beta_1').hide();
+            $('#beta_2').hide();
+            $('#nbeta').hide();
+        }
+        $('#auto_check').change(function() {
+            if (this.checked) {
+                $('#beta').hide();
+                $('#beta_1').show();
+                $('#beta_2').show();
+                $('#nbeta').show();
+            } else {
+                $('#beta').show();
+                $('#beta_1').hide();
+                $('#beta_2').hide();
+                $('#nbeta').hide();
+            }   
+        });
+
+        $('#use_example').click(function() {
+            $("input[name='SA']").val(3);
+            $("input[name='SB']").val(1);
+            $("input[name='zA']").val(4);
+            $("input[name='zB']").val(1);
+            $("input[name='pA']").val(6);
+            $("input[name='pB']").val(1);
+            $("input[name='beta']").val(0.01);
+            $("input[name='fA']").val(1);
+            $("input[name='fB']").val(1);
+            $("input[name='X0']").val(0);
+            $("input[name='Y0']").val(0);
+            $("input[name='T']").val(1);
+        });
+        $('#clear').click(function() {
+            $("input").val("");
+        });
+
+    </script>
+</body>
+</html>
